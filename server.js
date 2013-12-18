@@ -27,6 +27,14 @@ app.get("/", function (req, res){
     res.render("index");
 });
 
+app.get("/FF7E00", function (req, res){
+    res.render("FF7E00");
+});
+
+app.get("/443er", function (req, res){
+    res.render("443er");
+});
+
 // Create the server!
 http.createServer(app).listen(app.get("port"), function () {
     console.log("Express server listening on port " + app.get("port"));
