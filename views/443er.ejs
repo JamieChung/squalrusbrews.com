@@ -37,20 +37,28 @@
                         <td>FG</td>
                         <td>1.016</td>
                     </tr>
+                    <tr>
+                        <td>Malts</td>
+                        <td>Chocolate Malt &amp; Special B</td>
+                    </tr>
+                    <tr>
+                        <td>Hops</td>
+                        <td>Chinook</td>
+                    </tr>
                 </tbody>
             </table>
 
-            <p>Commonly referred to as the 2013 Holiday beer by Squalrus Brews this beer is dark and roasty. For the music aficionados the yeast for this brew grew up listening to the self-titled album by Ratatat. Secure yours now!</p>
+            <p><strong>Brewed:</strong> November 10, 2013</p>
+
+            <p><strong>Description:</strong> Commonly referred to as the 2013 Holiday beer by Squalrus Brews this beer is dark and roasty. For the music aficionados the yeast for this brew grew up listening to the self-titled album by Ratatat. Secure yours now!</p>
         </div>
     </section>
 
-    <section>
+    <section id="beta-test">
         <div class="container">
-            <center>
-                <h3>Congrats!</h3>
-                <p>You are lucky enough to have a :443er in your posession before it's even ready. Please wait until the date below, refrigerate, and enjoy.
-                <h2>Wednesday December 25, 2013</h2>
-            </center>
+            <h3>I have one, when can I enjoy it?</h3>
+            <p>If you have one already, leave it at room temperature to finish carbonating, refrigerate on Christmas Day, then enjoy.
+            <h2 id="enjoy-date" class="enjoy-date">Wednesday December 25, 2013</h2>
         </div>
     </section>
 
@@ -67,5 +75,65 @@
             <p><a href="https://github.com/squalrus/squalrusbrews.com" target="_blank">view source</a></p>
         </div>
     </footer>
+
+    <script src="/js/lib/jquery.min.js"></script>
+    <script>
+        var endDate     = new Date("December 25, 2013"),
+            nowDate     = Date.now(),
+            enjoyDate   = $("#enjoy-date"),
+            betaTest    = $("#beta-test"),
+            _fps        = 16.667,
+            _second     = 1000,
+            _minute     = _second * 60,
+            _hour       = _minute * 60,
+            _day        = _hour * 24;
+
+
+        // Format the remaining time
+        function formatDate (remaining) {
+            var remDays,
+                remHours,
+                remMins,
+                remSecs;
+
+            remDays = Math.floor(remaining / _day);
+            remaining -= (remDays * _day);
+
+            remHours = Math.floor(remaining / _hour);
+            remaining -= (remHours * _hour);
+
+            remMins = Math.floor(remaining / _minute);
+            remaining -= (remMins * _minute);
+
+            remSecs = Math.floor(remaining / _second);
+            remaining -= (remSecs * _second);
+
+            return addLeadingZero(remDays) + ":" + addLeadingZero(remHours) + ":" + addLeadingZero(remMins) + ":" + addLeadingZero(remSecs);
+        }
+
+        // Add a leading zero if needed
+        function addLeadingZero (num) {
+            if (num < 10 ) {
+                return "0" + num;
+            } else {
+                return num;
+            }
+        }
+
+        function update () {
+            var diffDate;
+
+            nowDate = Date.now();
+            diffDate = endDate - nowDate;
+
+            if (diffDate > 0) {
+                enjoyDate.text(formatDate(diffDate));
+            } else {
+                betaTest.hide();
+            }
+        }
+
+        setInterval(update, _fps);
+    </script>
 </body>
 </html>
